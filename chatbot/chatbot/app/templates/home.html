@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <title>Home Page</title>
+</head>
+<style>
+  
+  @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
+
+
+  .input-file-container {
+    position: relative;
+    width: 510px;
+    left: -100px;
+  }
+
+  .js .input-file-trigger {
+    display: block;
+    padding: 14px 45px;
+    background: #10ab2a;
+    color: #fff;
+    font-size: 1em;
+    transition: all .4s;
+    cursor: pointer;
+    border-radius: 5PX;
+  }
+
+  .js .input-file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 225px;
+    opacity: 0;
+    padding: 14px 0;
+    cursor: pointer;
+  }
+
+  .js .input-file:hover+.input-file-trigger,
+  .js .input-file:focus+.input-file-trigger,
+  .js .input-file-trigger:hover,
+  .js .input-file-trigger:focus {
+    background: #34495E;
+    color: #39D2B4;
+  }
+
+  .file-return {
+    margin: 0;
+  }
+
+  .file-return:not(:empty) {
+    margin: 1em 0;
+  }
+
+  .js .file-return {
+    font-style: italic;
+    font-size: .9em;
+    font-weight: bold;
+    color: white;
+  }
+
+  .js .file-return:not(:empty):before {
+    content: "Selected file: ";
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  .file1 {
+    width: 550px;
+    height: 220px;
+    padding: 50px 120px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+  }
+
+  body {
+    background-image: url(https://images.pexels.com/photos/5935794/pexels-photo-5935794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-size: cover;
+
+  }
+
+  h1 {
+    font-size: 60px;
+    color: rgb(232, 234, 250);
+    text-align: center;
+    text-shadow: 2px 2px 4px black;
+    padding-top: 50px;
+    text-transform: uppercase;
+    font-family: 'Exo 2', sans-serif;
+  }
+</style>
+
+<body>
+  <h1>WELCOME      {{key.username}}</h1>
+
+  <div class="container">
+    <!-- <h1>project chatbot</h1> -->
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row mt-5">
+
+        <div class="file1 col-6">
+          <div class="input-file-container">
+            <input type="file" name="fileUpload" class="input-file" id="my-file">
+            <label tabindex="0" for="my-file" class="input-file-trigger text-center">Upload a File</label>
+          </div>
+          <p class="file-return"></p> <br>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <textarea name="question" id="" cols="30" rows="6" class="form-control"
+              placeholder="Enter Your Question Here"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="output mt-5">
+      <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Answers Here"></textarea>
+    </div>
+
+  </div>
+
+  <script>
+    document.querySelector("html").classList.add('js');
+
+    var fileInput = document.querySelector(".input-file"),
+      button = document.querySelector(".input-file-trigger"),
+      the_return = document.querySelector(".file-return");
+
+    button.addEventListener("keydown", function (event) {
+      if (event.keyCode == 13 || event.keyCode == 32) {
+        fileInput.focus();
+      }
+    });
+    button.addEventListener("click", function (event) {
+      fileInput.focus();
+      return false;
+    });
+    fileInput.addEventListener("change", function (event) {
+      the_return.innerHTML = this.value;
+    });  
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
